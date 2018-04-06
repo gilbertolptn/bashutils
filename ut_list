@@ -1,11 +1,10 @@
 #!/bin/bash
 
 #=======================================================================================
-#title:			utlist
+#title:		ut_list
 #description:	This script list all the scripts in this set.
-#author:		gilbertolptn
-#usage:			utlist
-#notes:			NA
+#author:	gilbertolptn
+#usage:		utlist
 #=======================================================================================
 
 function printcolor {
@@ -13,15 +12,15 @@ function printcolor {
 }
 
 # Config
-scriptfolder=~/.bashutils/github/bashutils/
+scriptfolder=~/.bashutils/scripts
 
 printcolor
-printcolor "Avaliable Commands:"
+printcolor "ut - Bash Utils - Avaliable Commands:"
 printcolor
 
 for file in `ls $scriptfolder | egrep -v 'LICENSE|README.md'`; do
 	printcolor "------------------------------------------------------------------------"
-	cat $scriptfolder/$file | egrep '#title|#description|#usage|#notes'
+	cat $scriptfolder/$file | egrep '#title|#description|#usage|#notes' | egrep -v 'egrep'
 done;
 
 printcolor "------------------------------------------------------------------------"

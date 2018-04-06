@@ -5,7 +5,7 @@ Bash Utils are a set of bash scripts to make easy diary tasks on a Linux envirom
 
 Just run (with a non root user):
 
-> curl -s https://raw.githubusercontent.com/gilbertolptn/bashutils/master/utctrl_install | sh -
+> curl -s https://raw.githubusercontent.com/gilbertolptn/bashutils/master/ut_install | sh -
 
 The scripts will be installed in ~/.bashutils/scripts/ (inside your home). 
 

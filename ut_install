@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #=======================================================================================
-#title:		utctrl_install
+#title:		ut_install
 #description:	This script gets this utility package contents and setup in your system.
 #author:	gilbertolptn
 #usage:		curl -s https://raw.githubusercontent.com/gilbertolptn/bashutils/master/utctrl_install | sh -
@@ -13,21 +13,22 @@ function printcolor {
 }
 
 # Config
-scriptfolder=~/.bashutils/github
+mainfolder=~/.bashutils
+scriptfolder=scripts
 
 #Prepare
-if [ -x $scriptfolder ]; then
-#	rm -rf $scriptfolder
-	printcolor "Updating folder [$scriptfolder] in your home folder..."
+if [ -x "$mainfolder/$scriptfolder" ]; then
+	rm -rf "$mainfolder/$scriptfolder"
+	printcolor "Updating folder [$mainfolder] in your home folder..."
 else
-	printcolor "Creating folder [$scriptfolder] in your home folder..."
+	printcolor "Creating folder [$mainfolder] in your home folder..."
 fi;
-mkdir -p "$scriptfolder"
-cd "$scriptfolder"
+mkdir -p "$mainfolder"
+cd "$mainfolder"
 
 #Get scripts
 printcolor "Get contents from github..."
-git clone https://github.com/gilbertolptn/bashutils/
+git clone https://github.com/gilbertolptn/bashutils/ $scriptfolder
 
 # Path
 printcolor "Updating ~/.bashrc with a new Path..."
@@ -39,21 +40,16 @@ sed -i '/#bashutils_linecontrol/d' ~/.bashrc
 echo "" >> ~/.bashrc
 echo "# Path to bashutils installed by https://github.com/gilbertolptn/bashutils/utctrl_install #bashutils_linecontrol" >> ~/.bashrc
 echo "# These lines are controled by bashutils (un)install. Please dont remove manually.        #bashutils_linecontrol" >> ~/.bashrc
-echo "if [ -d \""$scriptfolder"\" ] ; then                                          #bashutils_linecontrol" >> ~/.bashrc
-echo "    PATH=\"\$PATH:$scriptfolder/bashutils/\"                                 #bashutils_linecontrol" >> ~/.bashrc
+echo "if [ -d \""$mainfolder/$scriptfolder"\" ] ; then                                          #bashutils_linecontrol" >> ~/.bashrc
+echo "    PATH=\"\$PATH:$mainfolder/$scriptfolder/\"                                 #bashutils_linecontrol" >> ~/.bashrc
 echo "fi                                                                                        #bashutils_linecontrol" >> ~/.bashrc
 
-printcolor "Complete!"
-printcolor ""
 printcolor "-----------------------------------------------------------------------------------"
 printcolor ""
-printcolor "You can use typing 'ut'... Because all scripts having the 'ut' prefix... Try :) "
+printcolor "Installation Complete!"
 printcolor ""
-printcolor "Ex.: Try type: utlist"
+printcolor "You can use typing 'ut'... Because all scripts starting with the 'ut' prefix... Try :) "
+printcolor "Ex.: ut_list"
 printcolor ""
+printcolor "PS: Maybe you need run a new shell/terminal to take effect the new PATH..."
 printcolor "-----------------------------------------------------------------------------------"
-
-#Update the PATH to avoid restart to use
-printcolor "Running a new shell to take effect the new PATH..."
-exec /bin/bash
-
