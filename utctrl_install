@@ -12,24 +12,48 @@ function printcolor {
 	printf "\033[0;36m$1\033[0m\n"
 }
 
-scriptfolder="~/.bashutils/scripts/"
+# Config
+scriptfolder=~/.bashutils/github
 
-printcolor "Creating folder [$scriptfolder] in your home folder..."
+#Prepare
+if [ -x $scriptfolder ]; then
+#	rm -rf $scriptfolder
+	printcolor "Updating folder [$scriptfolder] in your home folder..."
+else
+	printcolor "Creating folder [$scriptfolder] in your home folder..."
+fi;
+mkdir -p "$scriptfolder"
+cd "$scriptfolder"
 
-mkdir -p $scriptfolder
-cd $scriptfolder
-
-printcolor "Get contents from github"
-
+#Get scripts
+printcolor "Get contents from github..."
 git clone https://github.com/gilbertolptn/bashutils/
 
-echo "" >> ~/.bashrc
-echo "" >> ~/.bashrc
-echo "# Path to bashutils installed by https://github.com/gilbertolptn/bashutils/utctrl_install" >> ~/.bashrc
-echo "if [ -d "$scriptfolder" ] ; then" >> ~/.bashrc
-echo "    PATH="$PATH:$scriptfolder"" >> ~/.bashrc
-echo "fi" >> ~/.bashrc
-echo "" >> ~/.bashrc
-echo "" >> ~/.bashrc
+# Path
+printcolor "Updating ~/.bashrc with a new Path..."
 
-printcolor "Complete"
+# Remove old configuration
+sed -i '/#bashutils_linecontrol/d' ~/.bashrc
+
+# Add new configuration
+echo "" >> ~/.bashrc
+echo "# Path to bashutils installed by https://github.com/gilbertolptn/bashutils/utctrl_install #bashutils_linecontrol" >> ~/.bashrc
+echo "# These lines are controled by bashutils (un)install. Please dont remove manually.        #bashutils_linecontrol" >> ~/.bashrc
+echo "if [ -d \""$scriptfolder"\" ] ; then                                          #bashutils_linecontrol" >> ~/.bashrc
+echo "    PATH=\"\$PATH:$scriptfolder/bashutils/\"                                 #bashutils_linecontrol" >> ~/.bashrc
+echo "fi                                                                                        #bashutils_linecontrol" >> ~/.bashrc
+
+printcolor "Complete!"
+printcolor ""
+printcolor "-----------------------------------------------------------------------------------"
+printcolor ""
+printcolor "You can use typing 'ut'... Because all scripts having the 'ut' prefix... Try :) "
+printcolor ""
+printcolor "Ex.: Try type: utlist"
+printcolor ""
+printcolor "-----------------------------------------------------------------------------------"
+
+#Update the PATH to avoid restart to use
+printcolor "Running a new shell to take effect the new PATH..."
+exec /bin/bash
+

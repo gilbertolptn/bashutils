@@ -1,0 +1,28 @@
+#!/bin/bash
+
+#=======================================================================================
+#title:			utlist
+#description:	This script list all the scripts in this set.
+#author:		gilbertolptn
+#usage:			utlist
+#notes:			NA
+#=======================================================================================
+
+function printcolor {
+	printf "\033[0;36m$1\033[0m\n"
+}
+
+# Config
+scriptfolder=~/.bashutils/github/bashutils/
+
+printcolor
+printcolor "Avaliable Commands:"
+printcolor
+
+for file in `ls $scriptfolder | egrep -v 'LICENSE|README.md'`; do
+	printcolor "------------------------------------------------------------------------"
+	cat $scriptfolder/$file | egrep '#title|#description|#usage|#notes'
+done;
+
+printcolor "------------------------------------------------------------------------"
+
