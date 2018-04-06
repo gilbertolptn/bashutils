@@ -18,7 +18,7 @@ printcolor
 printcolor "ut - Bash Utils - Avaliable Commands:"
 printcolor
 
-for file in `ls $scriptfolder | egrep -v 'LICENSE|README.md'`; do
+for file in `ls $scriptfolder | egrep -v 'LICENSE|README.md' | sort -f`; do
 	printcolor "------------------------------------------------------------------------"
 	cat $scriptfolder/$file | egrep '#title|#description|#usage|#notes' | egrep -v 'egrep'
 done;
