@@ -1,0 +1,18 @@
+#!/bin/bash
+
+#==============================================================================
+#title:		utnetspeed
+#description:	This script runs the speedtest-cli to test the internet ratio.
+#author:	gilbertolptn
+#usage:		bash utnetspeed
+#notes:		Needs Python. Execute remote content (github).
+#==============================================================================
+
+function printcolor {
+	printf "\033[0;36m$1\033[0m\n"
+}
+
+printcolor "Executing curl to get latest version of speedtest-cli from github..."
+curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -
+
+printcolor "Complete"

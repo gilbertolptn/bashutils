@@ -1,0 +1,37 @@
+#!/bin/bash
+
+#=======================================================================================
+#title:		utsystemcleaner
+#description:	Clear the Package Kit cache and runs the vacuum of Journal.
+#author:	gilbertolptn
+#usage:		Just "utjournalcleaner" or "SIZE=32M utjournalcleaner" to change settings.
+#notes:		Needs root to clear the journal
+#=======================================================================================
+
+function printcolor {
+	printf "\033[0;36m$1\033[0m\n"
+}
+
+# Default CONFIGS
+if [ -z "$SIZE" ]; then
+	SIZE="32M"
+fi
+
+printcolor
+printcolor "Size of Package Kit cache before run:"
+du -sh /var/cache/PackageKit/ --exclude=gpgdir*
+printcolor
+
+
+printcolor "Cleaning and refreshing Package Kit cache..."
+pkcon refresh force -c -1
+
+printcolor
+printcolor "Size of Package Kit cache After run:"
+du -sh /var/cache/PackageKit/ --exclude=gpgdir*
+printcolor
+
+printcolor "Cleaning Journal... (needs root password)"
+sudo journalctl --vacuum-size=$SIZE
+
+printcolor "Complete"

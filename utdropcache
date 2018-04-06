@@ -1,0 +1,25 @@
+#!/bin/bash
+
+#==============================================================================
+#title:		utdropcache
+#description:	This script drops the cache used by system. 
+#		Shows the state of memory before and after drop. 
+#author:	gilbertolptn
+#usage:		bash utdropcache
+#notes:		Needs root
+#==============================================================================
+
+function printcolor {
+	printf "\033[0;36m$1\033[0m\n"
+}
+
+printcolor "State of memory before run: "
+free -hm
+
+printcolor "Running.... (needs root password)"
+echo 1 | sudo tee /proc/sys/vm/drop_caches 
+
+printcolor "State of memory after run: "
+free -hm
+
+printcolor "Complete"

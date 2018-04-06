@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#==============================================================================
+#title:		uthistorysearch
+#description:	This script list and grep your history of shell commands.
+#author:	gilbertolptn
+#usage:		uthistorysearch {word to search}
+#notes:		Pass the argument to search
+#==============================================================================
+
+function printcolor {
+	printf "\033[0;36m$1\033[0m\n"
+}
+
+if [ -z $1 ]; then
+	printcolor "Please pass the param to search. Ex: uthistorysearch {word to search}"
+	exit 1
+fi; 
+
+printcolor "Searching for [$1] in history..."
+cat ~/.bash_history | grep -e "$1"
+
+
