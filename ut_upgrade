@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#=======================================================================================
+#title:		ut_upgrade
+#description:	This script update this utility package in your system.
+#author:	gilbertolptn
+#usage:		ut_upgrade
+#notes:		You need package git and curl installed
+#=======================================================================================
+
+function printcolor {
+	printf "\033[0;36m$1\033[0m\n"
+}
+
+printcolor "Get updated install/upgrade script from GitHub..."
+curl -s https://raw.githubusercontent.com/gilbertolptn/bashutils/master/ut_install | sh -
