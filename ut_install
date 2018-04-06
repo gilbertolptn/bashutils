@@ -37,7 +37,6 @@ printcolor "Updating ~/.bashrc with a new Path..."
 sed -i '/#bashutils_linecontrol/d' ~/.bashrc
 
 # Add new configuration
-echo "" >> ~/.bashrc
 echo "# Path to bashutils installed by https://github.com/gilbertolptn/bashutils/utctrl_install #bashutils_linecontrol" >> ~/.bashrc
 echo "# These lines are controled by bashutils (un)install. Please dont remove manually.        #bashutils_linecontrol" >> ~/.bashrc
 echo "if [ -d \""$mainfolder/$scriptfolder"\" ] ; then                                          #bashutils_linecontrol" >> ~/.bashrc

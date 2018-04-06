@@ -1,0 +1,28 @@
+#!/bin/bash
+
+#==============================================================================
+#title:		utreplace (replace in file)
+#description:	This script search and replace oldstring to newstring in file.
+#author:	gilbertolptn
+#usage:		utreplaceinfile {oldstring} {newstring} {file}
+#notes:		Pass the argument to search
+#==============================================================================
+
+function printcolor {
+	printf "\033[0;36m$1\033[0m\n"
+}
+
+oldstring=$1
+newstring=$2
+file=$3
+
+if [ -z $oldstring ] | [ -z $newstring ] | [ -z $file ]; then
+	printcolor "Please use the syntax: utreplaceinfile {oldstring} {newstring} {file}"
+	exit 1
+fi; 
+
+printcolor "Search for {$oldstring} replace with {$newstring} in file {$file}..."
+
+sed -i "s/$oldstring/$newstring/g"  "$file"
+
+printcolor "Complete"
