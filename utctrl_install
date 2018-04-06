@@ -1,0 +1,35 @@
+#!/bin/bash
+
+#=======================================================================================
+#title:		utctrl_install
+#description:	This script gets this utility package contents and setup in your system.
+#author:	gilbertolptn
+#usage:		curl -s https://raw.githubusercontent.com/gilbertolptn/bashutils/master/utctrl_install | sh -
+#notes:		You need package git installed
+#=======================================================================================
+
+function printcolor {
+	printf "\033[0;36m$1\033[0m\n"
+}
+
+scriptfolder="~/.bashutils/scripts/"
+
+printcolor "Creating folder [$scriptfolder] in your home folder..."
+
+mkdir -p $scriptfolder
+cd $scriptfolder
+
+printcolor "Get contents from github"
+
+git clone https://github.com/gilbertolptn/bashutils/
+
+echo "" >> ~/.bashrc
+echo "" >> ~/.bashrc
+echo "# Path to bashutils installed by https://github.com/gilbertolptn/bashutils/utctrl_install" >> ~/.bashrc
+echo "if [ -d "$scriptfolder" ] ; then" >> ~/.bashrc
+echo "    PATH="$PATH:$scriptfolder"" >> ~/.bashrc
+echo "fi" >> ~/.bashrc
+echo "" >> ~/.bashrc
+echo "" >> ~/.bashrc
+
+printcolor "Complete"
