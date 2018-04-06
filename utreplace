@@ -4,7 +4,7 @@
 #title:		utreplace (replace in file)
 #description:	This script search and replace oldstring to newstring in file.
 #author:	gilbertolptn
-#usage:		utreplaceinfile {oldstring} {newstring} {file}
+#usage:		utreplace {oldstring} {newstring} {file}
 #notes:		Pass the argument to search
 #==============================================================================
 
@@ -17,7 +17,7 @@ newstring=$2
 file=$3
 
 if [ -z $oldstring ] | [ -z $newstring ] | [ -z $file ]; then
-	printcolor "Please use the syntax: utreplaceinfile {oldstring} {newstring} {file}"
+	printcolor "Please use the syntax: utreplace {oldstring} {newstring} {file}"
 	exit 1
 fi; 
 
