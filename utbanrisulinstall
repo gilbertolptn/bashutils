@@ -1,0 +1,63 @@
+#!/bin/bash
+
+#=======================================================================================
+#title:		utbanrisulinstall
+#description:	This script gets needed packages and install banrisul bank requisites.
+#author:	gilbertolptn
+#usage:		utbanrisulinstall
+#notes:		Needs root.
+#=======================================================================================
+
+installerfile=ComplementoBanrisul_Linux_122.deb
+
+function printcolor {
+	printf "\033[0;36m$1\033[0m\n"
+}
+
+printcolor "Creating temp folder and getting the DEB package..."
+cd /tmp
+rm -rf banrisul_setup
+mkdir banrisul_setup
+cd banrisul_setup
+wget https://www.banrisul.com.br/bob/download/$installerfile
+
+if [ -x /usr/bin/rpm ]; then
+
+	printcolor "Your system is RPM based... Extracting DEB and get contents to install..."
+	ar x $installerfile
+	tar xf data.tar.xz
+
+	printcolor "Coping installation into /usr/local/lib/BanrisulExtensao/ (requires root)"
+	sudo cp -r usr/ /
+
+	printcolor "Installation of Google Chrome integration..."
+	tar xf control.tar.gz
+	sudo bash postinst
+	
+	printcolor "Checking dependencies (dnf - requires root)"
+	sudo dnf install install pcsc-lite -y
+
+	printcolor "Checking and installing dependencies (dnf - requires root)"
+	sudo dnf install install pcsc-lite -y
+	
+	printcolor "Checking and enabling service (systemctl - requires root)"
+	sudo systemctl enable pcscd
+	sudo systemctl restart pcscd	
+fi
+
+if [ -x /usr/bin/dpkg ]; then
+	
+	printcolor "Your system is DEB based... Runing DPK to install DEB file...."
+	dpkg -i $installerfile;
+
+	printcolor "Checking dependencies (apt-get - requires root)"
+	sudo apt-get install pcscd -y
+fi;
+
+printcolor "Cleaning installation temporary folder..."
+cd /tmp
+rm -rf banrisul_setup
+
+printcolor "-----------------------------------------------------------------------------------"
+printcolor "Installation Complete!"
+printcolor "-----------------------------------------------------------------------------------"
