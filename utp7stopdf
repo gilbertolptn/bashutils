@@ -1,0 +1,27 @@
+#!/bin/bash
+
+#==============================================================================
+#title:		utp7stopdf
+#description:	This script extract the pdf (if avaliable) from p7s file.
+#author:	gilbertolptn
+#usage:		utp7stopdf {file p7s} {output file pdf}
+#notes:		Needs package openssl. Can generate another file type.
+#==============================================================================
+
+function printcolor {
+	printf "\033[0;36m$1\033[0m\n"
+}
+
+input_file=$1
+output_file=$2
+
+if [ -z $input_file ] || [ -z $output_file ] ; then
+	printcolor "Please use the syntax: utp7stopdf {file p7s} {output file pdf}"
+	exit 1
+fi;
+
+printcolor "Extracting Pdf from $input_file :"
+
+openssl smime -inform DER -verify -noverify -in "$input_file" -out "$output_file"
+
+printcolor "Complete"

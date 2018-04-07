@@ -1,0 +1,38 @@
+#!/bin/bash
+
+#==============================================================================
+#title:		utcacertsimport
+#description:	This script set or unser proxy enviroment variables.
+#author:	gilbertolptn
+#usage:		utcacertsimport {crt file}
+#notes:		Pass the file .crt to import into default cacerts. Needs root.
+#==============================================================================
+
+function printcolor {
+	printf "\033[0;36m$1\033[0m\n"
+}
+
+input_file=$1
+
+if [ -z $input_file ] ; then
+	printcolor "Please use the syntax: utcacertsimport {crt file}"
+	exit 1
+fi; 
+
+if [ ! -e $input_file ] ; then
+	printcolor "CTR file informed not found ($input_file). Please inform the full path."
+	exit 1
+fi; 
+
+if [ ! -e /usr/java/default/jre/lib/security/cacerts ] ; then
+	printcolor "Default keystore not found (/usr/java/default/jre/lib/security/cacerts). Do you have Java installed?"
+	exit 1
+fi; 
+
+printcolor "Import to default keystore (/usr/java/default/jre/lib/security/cacerts)..."
+
+printcolor "Please inform the keystore password (default is: changeit)"
+
+sudo keytool -import -file "$input_file" -keystore /usr/java/default/jre/lib/security/cacerts
+
+printcolor "Complete"

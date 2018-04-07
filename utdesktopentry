@@ -1,0 +1,43 @@
+#!/bin/bash
+
+#==============================================================================
+#title:		utdesktopentry
+#description:	This script create a Desktop Link (.desktop) to current user.
+#author:	gilbertolptn
+#usage:		utdesktopentry {friendly name} {executable file}
+#notes:		Use full path of executable file. Maybe your Window Manager requires restart to show new App.
+#==============================================================================
+
+function printcolor {
+	printf "\033[0;36m$1\033[0m\n"
+}
+
+NOME=$1
+EXEC=$2
+
+if [ -z $NOME ] || [ -z $EXEC ] ; then
+	printcolor "Please use the syntax: utdesktopentry \"{friendly name}\" {executable file}"
+	exit 1
+fi;
+
+if [ ! -x $EXEC ] ; then
+	printcolor "The {$EXEC} not found! Please inform full path to a executable binary or bash file."
+	exit 1
+fi;
+
+FILE=~/.local/share/applications/$NOME.desktop
+
+touch $FILE
+
+echo "[Desktop Entry]" >> $FILE
+echo "Version=1.0]" >> $FILE 
+echo "Exec=$EXEC" >> $FILE
+echo "Name=$NOME" >> $FILE
+echo "GenericName=$NOME" >> $FILE
+echo "Comment=$NOME" >> $FILE
+echo "Terminal=false" >> $FILE
+echo "Type=Application" >> $FILE
+echo "Categories=Application;" >> $FILE
+
+printcolor "Complete"
+printcolor "To uninstall run: rm $FILE"

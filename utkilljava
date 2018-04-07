@@ -1,0 +1,34 @@
+#!/bin/bash
+
+#==============================================================================
+#title:		utkilljava
+#description:	This script set or unser proxy enviroment variables.
+#author:	gilbertolptn
+#usage:		utkilljava {process name}
+#notes:		Pass the argument to search
+#==============================================================================
+
+function printcolor {
+	printf "\033[0;36m$1\033[0m\n"
+}
+
+process_name=$1
+
+if [ -z $process_name ] ; then
+	printcolor "Please use the syntax: utkilljava {process name}"
+	exit 1
+fi;
+
+printcolor "Avaliable process:"
+
+jps -v
+
+printcolor "\nSearch processo by name..."
+
+jps -v | grep $process_name
+
+printcolor "\nKilling process..."
+
+jps -v | grep $process_name | colrm 6 | xargs -i kill {}
+
+printcolor "Complete"

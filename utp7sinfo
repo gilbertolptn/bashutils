@@ -1,0 +1,26 @@
+#!/bin/bash
+
+#==============================================================================
+#title:		utp7sinfo
+#description:	This script shows the properties from p7s file.
+#author:	gilbertolptn
+#usage:		utp7sinfo {file}
+#notes:		Needs package openssl.
+#==============================================================================
+
+function printcolor {
+	printf "\033[0;36m$1\033[0m\n"
+}
+
+file=$1
+
+if [ -z $file ] ; then
+	printcolor "Please use the syntax: utp7sinfo {file}"
+	exit 1
+fi;
+
+printcolor "File $file info:"
+
+openssl pkcs7 -in "$file" -text -inform DER -print_certs -noout
+
+printcolor "Complete"
