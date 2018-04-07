@@ -14,6 +14,13 @@ function printcolor {
 	printf "\033[0;36m$1\033[0m\n"
 }
 
+if [ ! -x /usr/bin/java ]; then
+
+	printcolor "Java installation not found (/usr/bin/java). Java is required to run Banrisul Home Banking"
+	printcolor "Please install Java and Google Chrome folling this link: https://lptn.wordpress.com/2017/07/16/banrisul-no-linux-fedora/"
+	exit 1
+fi;
+
 printcolor "Creating temp folder and getting the DEB package..."
 cd /tmp
 rm -rf banrisul_setup
